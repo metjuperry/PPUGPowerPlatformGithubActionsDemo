@@ -65,27 +65,16 @@ jobs:
             solution-name: ${{ github.event.inputs.solution_name }}
             solution-output-file: ${{ github.event.repository.name }}/${{ github.event.inputs.solution_name }}_unmanaged.zip
             overwrite: true
+            managed: true
 
       - name: unpack-solution action
         uses: microsoft/powerplatform-actions/unpack-solution@v0
         with:
           solution-file: ${{ github.event.repository.name }}/${{ github.event.inputs.solution_name }}_unmanaged.zip
           solution-folder: ${{ github.event.repository.name }}/${{ github.event.inputs.solution_name }}
-          solution-type: 'Unmanaged'
+          solution-type: 'Managed'
           process-canvas-apps: true
           overwrite-files: true
-          
-      - name: export-managed-solution
-        uses: microsoft/powerplatform-actions/export-solution@v0
-        with:
-            environment-url: ${{ github.event.inputs.environment_url}}
-            app-id: ${{ env.CLIENT_ID }}
-            client-secret: ${{ secrets.POWER_PLATFORM_ACTIONS_APPUSER_SECRET }}
-            tenant-id: ${{env.TENANT_ID}}
-            solution-name: ${{ github.event.inputs.solution_name }}
-            solution-output-file: ${{ github.event.repository.name }}/${{ github.event.inputs.solution_name }}_managed.zip
-            overwrite: true
-            managed: true
 
       - name: commit changes
         shell: pwsh
