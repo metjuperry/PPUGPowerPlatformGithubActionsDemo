@@ -14,7 +14,7 @@ env:
 permissions:
   contents: write
 jobs:
-  export-unpack-commit:
+  pack-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
