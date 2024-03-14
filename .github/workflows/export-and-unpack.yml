@@ -11,20 +11,6 @@ on:
         description: "http endpoint of your Dataverse environment"
         required: true
         default: "https://[your-env].crm.dynamics.com"
-      source_branch:
-        description: "source branch"
-        required: true
-        default: main
-      branch_to_create:
-        description: "branch to create"
-        required: false
-      commit_message:
-        description: "message to provide for the commit"
-        required: true
-      allow_empty_commit:
-        description: "allow an empty commit"
-        required: true
-        default: 'false'
 env:
 #edit your values here
   TENANT_ID: '67266d43-8de7-494d-9ed8-3d1bd3b3a764'
@@ -79,6 +65,10 @@ jobs:
       - name: commit changes
         shell: pwsh
         run: |
+
+          git config --global user.email "actions@samler.cz"
+          git config --global user.name "Github Actions Bot"
+
           git add .
           git commit -m "Commiting exported solution"
           git push
