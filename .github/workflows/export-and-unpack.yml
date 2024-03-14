@@ -63,14 +63,14 @@ jobs:
             client-secret: ${{ secrets.POWER_PLATFORM_ACTIONS_APPUSER_SECRET }}
             tenant-id: ${{env.TENANT_ID}}
             solution-name: ${{ github.event.inputs.solution_name }}
-            solution-output-file: ${{ github.event.repository.name }}/${{ github.event.inputs.solution_name }}_unmanaged.zip
+            solution-output-file: ${{ github.event.repository.name }}/${{ github.event.inputs.solution_name }}_managed.zip
             overwrite: true
             managed: true
 
       - name: unpack-solution action
         uses: microsoft/powerplatform-actions/unpack-solution@v0
         with:
-          solution-file: ${{ github.event.repository.name }}/${{ github.event.inputs.solution_name }}_unmanaged.zip
+          solution-file: ${{ github.event.repository.name }}/${{ github.event.inputs.solution_name }}_managed.zip
           solution-folder: ${{ github.event.repository.name }}/${{ github.event.inputs.solution_name }}
           solution-type: 'Managed'
           process-canvas-apps: true
@@ -79,6 +79,6 @@ jobs:
       - name: commit changes
         shell: pwsh
         run: |
-          git add --all
-          git commit -am new message
+          git add .
+          git commit -m "Commiting exported solution"
           git push
