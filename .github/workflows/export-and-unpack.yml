@@ -83,5 +83,4 @@ jobs:
             solution-output-file: ${{ github.event.repository.name }}/${{ github.event.inputs.solution_name }}_managed.zip
             overwrite: true
             managed: true
-        run: |
           git push --set-upstream origin ${{ github.event.inputs.branch_to_create }}
