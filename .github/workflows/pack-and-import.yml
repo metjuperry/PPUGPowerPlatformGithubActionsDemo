@@ -7,6 +7,10 @@ on:
         description: "http endpoint of your Dataverse environment"
         required: true
         default: "https://[your-env].crm.dynamics.com"
+      solution_name:
+        description: "name of the Solution in Dataverse environment"
+        required: true
+        default: yoursolutionname
 env:
 #edit your values here
   TENANT_ID: '67266d43-8de7-494d-9ed8-3d1bd3b3a764'
