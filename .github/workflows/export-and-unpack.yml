@@ -50,7 +50,10 @@ jobs:
       # We need to use pac directly.
       # So we set the path to pac that ships with the Actions
      
-
+      - name: Create Branch
+        run: |
+          git checkout -b ${{ github.event.inputs.branch_to_create }}
+          
       # Runs a set of commands using the runners shell
       - name: export-solution action
         uses: microsoft/powerplatform-actions/export-solution@v0
@@ -83,3 +86,10 @@ jobs:
             solution-output-file: ${{ github.event.repository.name }}/${{ github.event.inputs.solution_name }}_managed.zip
             overwrite: true
             managed: true
+
+      - name: commit changes
+        shell: pwsh
+        run: |
+          git add --all
+          git commit -am new message
+          git push
