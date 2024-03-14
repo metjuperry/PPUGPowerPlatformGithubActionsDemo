@@ -71,4 +71,4 @@ jobs:
 
           git add .
           git commit -m "Commiting exported solution"
-          git push
+          git push --set-upstream origin newSolutionBranch
