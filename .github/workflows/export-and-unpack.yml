@@ -7,10 +7,6 @@ on:
         description: "name of the Solution in Dataverse environment"
         required: true
         default: yoursolutionname
-      # environment_id:
-      #   description: "GUID of your Dataverse environment"
-      #   required: true
-      #   default: "GUID-OF-YOUR-ENVIRONMENT"
       environment_url:
         description: "http endpoint of your Dataverse environment"
         required: true
@@ -29,6 +25,10 @@ on:
         description: "allow an empty commit"
         required: true
         default: 'false'
+env:
+#edit your values here
+  TENANT_ID: '67266d43-8de7-494d-9ed8-3d1bd3b3a764'
+  CLIENT_ID: '4880a9e8-fd3c-4b89-9966-dc59b1e09984'
 permissions:
   contents: write
 jobs:
@@ -42,9 +42,9 @@ jobs:
         name: Who Am I
         uses: microsoft/powerplatform-actions/who-am-i@latest
         with:
-          app-id: ${{ secrets.CLIENT_ID }}
-          client-secret: ${{ secrets.POWERPLATFORMSPN }}
-          tenant-id: ${{ secrets.TENANT_ID }}
+          app-id: ${{ env.CLIENT_ID }}
+          client-secret: ${{ secrets.POWER_PLATFORM_ACTIONS_APPUSER_SECRET }}
+          tenant-id: ${{env.TENANT_ID}}
           environment-url: ${{ github.event.inputs.environment_url}}
 
       - name: create or checkout git branch
@@ -70,9 +70,9 @@ jobs:
         uses: microsoft/powerplatform-actions/export-solution@v0
         with:
             environment-url: ${{ github.event.inputs.environment_url}}
-            app-id: ${{secrets.CLIENT_ID}}
-            client-secret: ${{ secrets.PowerPlatformSPN }}
-            tenant-id: ${{secrets.TENANT_ID}}
+            app-id: ${{ env.CLIENT_ID }}
+            client-secret: ${{ secrets.POWER_PLATFORM_ACTIONS_APPUSER_SECRET }}
+            tenant-id: ${{env.TENANT_ID}}
             solution-name: ${{ github.event.inputs.solution_name }}
             solution-output-file: ${{ github.event.repository.name }}/${{ github.event.inputs.solution_name }}_unmanaged.zip
             overwrite: true
@@ -90,9 +90,9 @@ jobs:
         uses: microsoft/powerplatform-actions/export-solution@v0
         with:
             environment-url: ${{ github.event.inputs.environment_url}}
-            app-id: ${{secrets.CLIENT_ID}}
-            client-secret: ${{ secrets.PowerPlatformSPN }}
-            tenant-id: ${{secrets.TENANT_ID}}
+            app-id: ${{ env.CLIENT_ID }}
+            client-secret: ${{ secrets.POWER_PLATFORM_ACTIONS_APPUSER_SECRET }}
+            tenant-id: ${{env.TENANT_ID}}
             solution-name: ${{ github.event.inputs.solution_name }}
             solution-output-file: ${{ github.event.repository.name }}/${{ github.event.inputs.solution_name }}_managed.zip
             overwrite: true
